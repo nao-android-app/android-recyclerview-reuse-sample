@@ -1,4 +1,4 @@
-package com.nao.view
+package com.nao.recyclerviewreuse
 
 import org.junit.Test
 

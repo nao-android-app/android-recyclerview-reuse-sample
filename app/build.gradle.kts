@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.nao.view"
+    namespace = "com.nao.recyclerviewreuse"
     compileSdk {
         version = release(37) {
             minorApiLevel = 1
@@ -20,6 +20,9 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures{
+        viewBinding = true
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -41,6 +44,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

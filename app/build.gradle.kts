@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.nao.view"
+        applicationId = "com.nao.recyclerviewreuse"
         minSdk = 26
         targetSdk = 36
         versionCode = 1

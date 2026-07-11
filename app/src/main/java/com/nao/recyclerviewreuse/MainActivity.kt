@@ -8,12 +8,10 @@ import com.nao.recyclerviewreuse.databinding.ActivityMainBinding
 import com.nao.recyclerviewreuse.model.Item
 
 /**
- * サンプルの動作モード。
- *
- * false: ClickListenerが残るバグを再現
- * true : ClickListenerをリセットして修正版を確認
+ * 起動時の動作モード。
  */
-private const val APPLY_FIX = false
+private val sampleMode = SampleMode.FIXED
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -25,27 +23,20 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = SampleAdapter(
-            items = createSampleItems(),
-            applyFix = APPLY_FIX
-        )
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = SampleAdapter(
+                items = createSampleItems(),
+                sampleMode = sampleMode
+            )
+        }
 
-        binding.tvMode.text =
-            if (APPLY_FIX) {
-                "Bug Mode : OFF (Fixed)"
-            } else {
-                "Bug Mode : ON"
-            }
+        binding.tvMode.text = sampleMode.title
 
         binding.tvMode.setTextColor(
             ContextCompat.getColor(
                 this,
-                if (APPLY_FIX) {
-                    android.R.color.holo_green_dark
-                } else {
-                    android.R.color.holo_red_dark
-                }
+                sampleMode.colorRes
             )
         )
     }

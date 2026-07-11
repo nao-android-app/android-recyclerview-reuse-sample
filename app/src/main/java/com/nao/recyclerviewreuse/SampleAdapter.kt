@@ -11,7 +11,7 @@ import com.nao.recyclerviewreuse.model.Item
 
 class SampleAdapter(
     private val items: List<Item>,
-    private val applyFix: Boolean
+    private val sampleMode: SampleMode
 ) : RecyclerView.Adapter<SampleAdapter.ViewHolder>() {
 
     private companion object {
@@ -98,7 +98,7 @@ class SampleAdapter(
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        } else if (applyFix) {
+        } else if (sampleMode.resetClickListener) {
             binding.tvDelete.setOnClickListener(null)
         }
 

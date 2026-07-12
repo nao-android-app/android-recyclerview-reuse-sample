@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Empty View"
+rootProject.name = "RecyclerView Reuse Sample"
 include(":app")

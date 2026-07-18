@@ -98,7 +98,7 @@ class SampleAdapter(
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        } else if (sampleMode.resetClickListener) {
+        } else if (sampleMode.shouldResetClickListener) {
             binding.tvDelete.setOnClickListener(null)
         }
 

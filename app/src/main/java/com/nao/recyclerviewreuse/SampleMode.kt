@@ -1,27 +1,15 @@
 package com.nao.recyclerviewreuse
 
-import androidx.annotation.ColorRes
-
 /**
  * サンプルアプリの動作モード。
  */
-enum class SampleMode(
-    val title: String,
-    @ColorRes val colorRes: Int,
-    val resetClickListener: Boolean
-) {
-
+enum class SampleMode {
     /** ClickListenerが残るバグを再現 */
-    BUG(
-        title = "Bug Mode",
-        colorRes = android.R.color.holo_red_dark,
-        resetClickListener = false
-    ),
+    BUG,
 
     /** ClickListenerを解除して修正版を確認 */
-    FIXED(
-        title = "Fixed Mode",
-        colorRes = android.R.color.holo_green_dark,
-        resetClickListener = true
-    )
+    FIXED;
+
+    val shouldResetClickListener: Boolean
+        get() = this == FIXED
 }

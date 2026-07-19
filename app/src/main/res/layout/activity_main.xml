@@ -7,14 +7,19 @@
     android:orientation="vertical"
     tools:background="@color/background_default">
 
-    <TextView
-        android:id="@+id/tvMode"
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switchMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Bug Mode : ON"
+        android:text="Fixed Mode"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

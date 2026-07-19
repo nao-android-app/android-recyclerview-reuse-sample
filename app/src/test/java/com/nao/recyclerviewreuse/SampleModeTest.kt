@@ -8,11 +8,11 @@ class SampleModeTest {
 
     @Test
     fun BUGモードではClickListenerをリセットしない() {
-        assertFalse(SampleMode.BUG.resetClickListener)
+        assertFalse(SampleMode.BUG.shouldResetClickListener)
     }
 
     @Test
     fun FIXEDモードではClickListenerをリセットする() {
-        assertTrue(SampleMode.FIXED.resetClickListener)
+        assertTrue(SampleMode.FIXED.shouldResetClickListener)
     }
 }

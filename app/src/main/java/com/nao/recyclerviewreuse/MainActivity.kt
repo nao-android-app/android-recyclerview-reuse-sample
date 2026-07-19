@@ -2,7 +2,6 @@ package com.nao.recyclerviewreuse
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -11,9 +10,9 @@ import com.nao.recyclerviewreuse.databinding.ActivityMainBinding
 import com.nao.recyclerviewreuse.model.Item
 
 /**
- * 起動時の動作モード。
+ * サンプルアプリの動作モード
  */
-private val sampleMode = SampleMode.FIXED
+private var currentMode = SampleMode.BUG
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -33,29 +32,33 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = SampleAdapter(
-                items = createSampleItems(),
-                sampleMode = sampleMode
-            )
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+
+        setSampleMode(currentMode)
+
+        binding.switchMode.setOnCheckedChangeListener { _, checked ->
+            val selectedMode = if (checked) {
+                SampleMode.FIXED
+            } else {
+                SampleMode.BUG
+            }
+            SampleAdapter.resetViewHolderCount()
+            setSampleMode(selectedMode)
         }
+    }
 
-        binding.tvMode.text = sampleMode.title
-
-        binding.tvMode.setTextColor(
-            ContextCompat.getColor(
-                this,
-                sampleMode.colorRes
-            )
+    private fun createSampleItems(): List<Item> = List(40) { index ->
+        Item(
+            id = index,
+            canDelete = index < 10
         )
     }
 
-    private fun createSampleItems(): List<Item> =
-        List(40) { index ->
-            Item(
-                id = index,
-                isClickable = index < 10
-            )
-        }
+    private fun setSampleMode(selectedSampleMode: SampleMode) {
+        currentMode = selectedSampleMode
+        binding.recyclerView.adapter = SampleAdapter(
+            items = createSampleItems(),
+            sampleMode = currentMode
+        )
+    }
 }

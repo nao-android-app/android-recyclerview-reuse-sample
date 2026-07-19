@@ -13,9 +13,13 @@ class SampleAdapter(
     private val items: List<Item>,
     private val sampleMode: SampleMode
 ) : RecyclerView.Adapter<SampleAdapter.ViewHolder>() {
-
-    private companion object {
+    companion object {
         var viewHolderCount = 0
+            private set
+
+        fun resetViewHolderCount() {
+            viewHolderCount = 0
+        }
     }
 
     class ViewHolder(
@@ -24,9 +28,9 @@ class SampleAdapter(
         val holderId = ++viewHolderCount
 
         // 検証用。
-        // このViewHolderが直前に表示していたisClickableの値を保持し、
+        // このViewHolderが直前に表示していたcanDeleteの値を保持し、
         // Viewの再利用を可視化するために使用する。
-        var previousClickableState: Boolean? = null
+        var previousCanDelete: Boolean? = null
     }
 
     override fun onCreateViewHolder(
@@ -50,7 +54,7 @@ class SampleAdapter(
         position: Int
     ) {
         val item = items[position]
-        val previousIsClickable = holder.previousClickableState
+        val previousCanDelete = holder.previousCanDelete
         val binding = holder.binding
 
         binding.tvTitle.text =
@@ -60,12 +64,12 @@ class SampleAdapter(
             """.trimIndent()
         binding.tvInfo.text =
             """
-            Current : ${item.isClickable}
-            Previous : ${previousIsClickable ?: "-"}
+            Current : ${item.canDelete}
+            Previous : ${previousCanDelete ?: "-"}
             """.trimIndent()
 
         val backgroundColor =
-            getBackgroundColor(previousIsClickable, item.isClickable)
+            getBackgroundColor(previousCanDelete, item.canDelete)
 
         binding.root.setBackgroundColor(
             ContextCompat.getColor(
@@ -83,14 +87,9 @@ class SampleAdapter(
 
         }
 
-        binding.tvDelete.alpha = if (item.isClickable) 1f else 0.4f
-        binding.tvDelete.text = if (item.isClickable) {
-            "🗑 Delete"
-        } else {
-            "Delete (Disabled)"
-        }
+        binding.tvDelete.alpha = if (item.canDelete) 1f else 0.4f
 
-        if (item.isClickable) {
+        if (item.canDelete) {
             binding.tvDelete.setOnClickListener {
                 Toast.makeText(
                     holder.itemView.context,
@@ -102,7 +101,7 @@ class SampleAdapter(
             binding.tvDelete.setOnClickListener(null)
         }
 
-        holder.previousClickableState = item.isClickable
+        holder.previousCanDelete = item.canDelete
     }
 
     private fun getBackgroundColor(
@@ -125,5 +124,4 @@ class SampleAdapter(
     }
 
     override fun getItemCount() = items.size
-
 }

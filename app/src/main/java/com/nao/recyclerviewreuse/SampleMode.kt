@@ -1,7 +1,7 @@
 package com.nao.recyclerviewreuse
 
 /**
- * サンプルアプリの動作モード。
+ * サンプルアプリの動作モード
  */
 enum class SampleMode {
     /** ClickListenerが残るバグを再現 */

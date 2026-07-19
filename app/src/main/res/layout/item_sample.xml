@@ -38,7 +38,7 @@
             android:paddingHorizontal="12dp"
             android:paddingVertical="8dp"
             android:textColor="@android:color/white"
-            tools:text="🗑 Delete" />
+            android:text="🗑 Delete" />
     </LinearLayout>
 
     <View

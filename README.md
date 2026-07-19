@@ -1,11 +1,12 @@
 # RecyclerView Reuse Sample
 
 Qiita記事のサンプルコードとして作成したアプリです。
-RecyclerViewのViewHolder再利用による問題を実際に動かして確認できます。
+
+RecyclerViewのViewHolder再利用によって発生する、`ClickListener`のリセット漏れを実際に動かして確認できます。
 
 ## サンプルで確認できること
 
-- RecyclerViewのViewHolderが再利用される様子
+- RecyclerViewでViewHolderが再利用される様子
 - `ClickListener`をリセットしなかった場合に発生する不具合
 - `setOnClickListener(null)`でリセットした場合の挙動
 
@@ -13,57 +14,46 @@ RecyclerViewのViewHolder再利用による問題を実際に動かして確認�
 
 ### 初期状態
 
-<img src="images/initial.png" width="320">
+<img src="docs/images/initial.png" width="320">
 
-初期状態ではItem 0〜9のみ削除可能です。
+初期状態では、Item 0〜9のみ削除可能です。
 
 ### ViewHolder再利用
 
-<img src="images/reused.png" width="320">
+<img src="docs/images/reused.png" width="320">
 
-スクロールするとViewHolderが別のアイテムに再利用されます。
+スクロールすると、ViewHolderが別のアイテムへ再利用されます。
 
 赤色のセルは、
-「前回表示していたアイテムはClick可能(true)だったが、
-現在のアイテムはClick不可(false)になった」
-ことを表しています。
+
+- 前回表示していたアイテム：削除可能（`canDelete = true`）
+- 現在表示しているアイテム：削除不可（`canDelete = false`）
+
+へ切り替わったことを表しています。
+
+※緑色（`false → true`）は再利用を可視化するための補助表示です。記事では`true → false`のケースを扱っています。
 
 ### BUG Mode
 
-<img src="images/bug_mode.png" width="320">
+<img src="docs/images/bug_mode.png" width="320">
 
-以前表示していたItemのClickListenerが残っているため、
+以前表示していたItemの`ClickListener`が残っているため、
 現在のItemとは異なる処理が実行されます。
 
 ### FIXED Mode
 
-<img src="images/fixed_mode.png" width="320">
+<img src="docs/images/fixed_mode.png" width="320">
 
-ClickListenerをリセットしているため、不具合は発生しません。
+`ClickListener`をリセットしているため、不具合は発生しません。
 
 ## 動作モード
 
-`MainActivity.kt`の`sampleMode`を書き換えることで切り替えられます。
+画面上部のスイッチで、BUG Mode と FIXED Mode を切り替えられます。
 
-現在のサンプルではUI上の切り替え機能は実装していません。
-変更後に再ビルドしてください。
-
-```kotlin
-private val sampleMode = SampleMode.BUG
-```
-
-または
-
-```kotlin
-private val sampleMode = SampleMode.FIXED
-```
-
-変更後にアプリを再ビルドしてください。
-
-| Mode  | 内容                          |
-|-------|-----------------------------|
-| BUG   | ClickListenerをリセットせず、不具合を再現 |
-| FIXED | ClickListenerをリセットし、修正版を確認  |
+| Mode | 内容 |
+|------|------|
+| BUG | `ClickListener`をリセットせず、不具合を再現 |
+| FIXED | `ClickListener`をリセットし、修正版を確認 |
 
 ## 動作環境
 
@@ -78,4 +68,4 @@ MIT License
 
 ## 関連記事
 
-- RecyclerViewのViewHolder再利用によるClickListenerのリセット漏れについて（Qiita公開後に記事URLを追加）
+- RecyclerViewはViewを使い回す。onBindViewHolder()で状態をリセットしないと起こる問題（Qiita公開後にURLを追加）

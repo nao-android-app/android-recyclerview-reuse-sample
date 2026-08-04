@@ -68,4 +68,6 @@ MIT License
 
 ## 関連記事
 
-- RecyclerViewはViewを使い回す。onBindViewHolder()で状態をリセットしないと起こる問題（Qiita公開後にURLを追加）
+Qiitaで解説記事を公開しています。
+
+- [RecyclerViewはViewを使い回す。onBindViewHolder()で状態をリセットしないと起こる問題](https://qiita.com/nao-android/items/4a42d18d2b764f362ef2)
